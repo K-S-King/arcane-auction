@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>ARCANE AUCTION | The Digital Pulse</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#00eefc",
+            "on-tertiary": "#503172",
+            "primary-fixed-dim": "#00deec",
+            "tertiary-fixed-dim": "#c09ce6",
+            "inverse-on-surface": "#4f5469",
+            "on-tertiary-container": "#462768",
+            "tertiary": "#dbb8ff",
+            "primary-dim": "#00deec",
+            "on-primary-fixed": "#003f43",
+            "error": "#ff716c",
+            "secondary": "#e0b6ff",
+            "on-tertiary-fixed": "#2f0d50",
+            "surface-variant": "#182446",
+            "surface-container-high": "#131e3c",
+            "on-secondary-fixed-variant": "#812fc1",
+            "tertiary-fixed": "#cea9f5",
+            "surface-tint": "#8ff5ff",
+            "surface-bright": "#1c2a51",
+            "on-tertiary-fixed-variant": "#503072",
+            "error-dim": "#c94947",
+            "on-secondary-fixed": "#61009e",
+            "background": "#070d1f",
+            "surface-container-low": "#0b1228",
+            "outline": "#68749b",
+            "on-error-container": "#ff9993",
+            "on-secondary": "#6200a0",
+            "secondary-dim": "#c57eff",
+            "inverse-primary": "#006a71",
+            "primary-fixed": "#00eefc",
+            "surface-container-highest": "#182446",
+            "surface-dim": "#070d1f",
+            "on-primary-container": "#005359",
+            "secondary-container": "#3c0065",
+            "on-error": "#490006",
+            "on-surface-variant": "#9eaad3",
+            "on-secondary-container": "#c987ff",
+            "surface": "#070d1f",
+            "inverse-surface": "#faf8ff",
+            "secondary-fixed-dim": "#e9c8ff",
+            "on-primary-fixed-variant": "#005e64",
+            "primary": "#8ff5ff",
+            "tertiary-container": "#cea9f5",
+            "surface-container": "#0f1832",
+            "error-container": "#8a1a1e",
+            "on-primary": "#005d63",
+            "surface-container-lowest": "#000000",
+            "secondary-fixed": "#f2daff",
+            "tertiary-dim": "#c09ce6",
+            "outline-variant": "#3b476b",
+            "on-background": "#dfe4ff",
+            "on-surface": "#dfe4ff"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(24, 36, 70, 0.4);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(59, 71, 107, 0.2);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #8ff5ff 0%, #e0b6ff 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-pulse {
+      background: linear-gradient(135deg, #8ff5ff 0%, #00eefc 100%);
+      transition: all 0.3s ease;
+    }
+
+    .btn-pulse:hover {
+      box-shadow: 0 0 15px rgba(143, 245, 255, 0.4);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Profile dropdown */
+    .profile-dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s ease;
+    }
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Login modal entrance */
+    .modal-enter {
+      animation: modalIn 0.3s ease forwards;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+  <!-- TOP NAVBAR -->
+  <nav
+    class="fixed top-0 w-full z-50 bg-[#070d1f]/60 backdrop-blur-xl border-b border-[#3b476b]/15 shadow-[0_0_20px_rgba(143,245,255,0.05)]">
+    <div class="flex justify-between items-center px-8 h-20 w-full max-w-screen-2xl mx-auto">
+      <div
+        class="text-2xl font-bold bg-gradient-to-r from-[#8ff5ff] to-[#e0b6ff] bg-clip-text text-transparent font-headline tracking-tight">
+        ARCANE AUCTION
+      </div>
+      <div class="hidden md:flex items-center gap-8 font-headline tracking-tight">
+        <a class="text-[#8ff5ff] border-b-2 border-[#8ff5ff] pb-1" href="#">Home</a>
+        <a class="text-[#dbb8ff]/70 hover:text-[#8ff5ff] transition-colors" href="#">Explore</a>
+        <a class="text-[#dbb8ff]/70 hover:text-[#8ff5ff] transition-colors" href="#">My Events</a>
+        <a class="text-[#dbb8ff]/70 hover:text-[#8ff5ff] transition-colors" href="#">Bookmarks</a>
+        <a class="text-[#dbb8ff]/70 hover:text-[#8ff5ff] transition-colors cursor-pointer" onclick="handleProtectedAction(() => {})" id="nav-profile">Profile</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="p-2 text-[#dbb8ff]/70 hover:bg-[#8ff5ff]/10 rounded-lg transition-all active:scale-95 duration-200">
+          <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+        </button>
+
+        <!-- AUTH: Sign In button (shown when logged out) -->
+        <button id="auth-signin-btn"
+          class="px-5 py-2 rounded-full border border-[#8ff5ff]/40 text-[#8ff5ff] text-sm font-bold font-headline hover:bg-[#8ff5ff]/10 transition-all"
+          onclick="openLoginModal()">
+          Sign In
+        </button>
+
+        <!-- AUTH: User avatar + dropdown (shown when logged in) -->
+        <div id="auth-user-area" class="relative hidden">
+          <button onclick="toggleProfileDropdown()" class="w-10 h-10 rounded-full border-2 border-[#8ff5ff]/40 overflow-hidden hover:border-[#8ff5ff] transition-colors focus:outline-none">
+            <img id="auth-avatar" alt="User Avatar" class="w-full h-full object-cover"
+              src="https://ui-avatars.com/api/?name=U&background=182446&color=8ff5ff&bold=true" />
+          </button>
+          <!-- Profile Dropdown -->
+          <div id="profile-dropdown" class="profile-dropdown absolute right-0 top-14 w-64 glass-card rounded-2xl border border-outline-variant/20 shadow-2xl p-4 z-50">
+            <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/15">
+              <img id="dropdown-avatar" class="w-10 h-10 rounded-full object-cover" src="" alt="" />
+              <div class="overflow-hidden">
+                <p id="dropdown-name" class="font-headline font-bold text-sm truncate"></p>
+                <p id="dropdown-email" class="text-xs text-on-surface-variant truncate"></p>
+              </div>
+            </div>
+            <button onclick="signOutUser()"
+              class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-error/80 hover:bg-error/10 transition-colors font-medium">
+              <span class="material-symbols-outlined text-[20px]">logout</span>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <!-- Abstract Background Pulse -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full animate-pulse">
+      </div>
+      <div
+        class="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-secondary/10 blur-[120px] rounded-full animate-pulse"
+        style="animation-delay: 2s"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="font-headline text-6xl md:text-8xl font-bold leading-tight mb-6">
+          <span class="text-gradient">Discover &amp; Bid</span><br />in Live Auctions
+        </h1>
+        <p class="text-on-surface-variant text-xl md:text-2xl font-light mb-10 max-w-xl">
+          Join real-time events, compete, and win exclusive items in the world's most advanced digital marketplace.
+        </p>
+        <div class="flex flex-wrap gap-5">
+          <button
+            class="btn-pulse px-8 py-4 rounded-full text-on-primary font-bold text-lg hover:scale-105 transition-transform"
+            onclick="document.getElementById('auction-grid').scrollIntoView({behavior:'smooth'})">
+            Explore Auctions
+          </button>
+          <button
+            class="px-8 py-4 rounded-full border border-outline-variant/30 bg-white/5 backdrop-blur-md text-on-surface font-bold text-lg hover:bg-white/10 transition-all"
+            onclick="handleProtectedAction(openCreateModal)">
+            Create Event
+          </button>
+        </div>
+      </div>
+      <div class="hidden lg:block relative">
+        <div class="aspect-square glass-card rounded-3xl p-4 overflow-hidden shadow-2xl">
+          <img class="w-full h-full object-cover rounded-2xl"
+            data-alt="futuristic 3d abstract visualization of flowing neon liquid chrome with cyan and purple reflections"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGhwoVg4vFyd6oaTsb6BVClYLK3qXchVnKlZaHlmpQ3dF-aLa8e5EccG12LsOppOWW6fI83fZmTGfnZ_LTM6jWB37VmAud55MCMuwzVGUY6IqYL3_tPwA3xPZebCgL2qM0_SpTvs7lAcGS4DcwZi3-zGPMnrnsnYf0bJsuRAB9MpZENnXxCJfqrx63EIZHZQ8G2GB8JFsB9uvifH3NMvB6ElbVgO4eGkAS5Cjv0MzbFzjKc0gMbZWgazuhOVzq1Dcqebne8Z1JTCg" />
+          <div class="absolute bottom-10 right-10 glass-card p-6 rounded-2xl border border-white/10 max-w-xs shadow-xl">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-label uppercase tracking-widest text-primary">Active Now</span>
+              <div class="flex gap-1">
+                <div class="w-2 h-2 rounded-full bg-primary animate-ping"></div>
+                <div class="w-2 h-2 rounded-full bg-primary"></div>
+              </div>
+            </div>
+            <h3 class="font-headline text-xl font-bold mb-4">Ether Pillar #042</h3>
+            <div class="flex justify-between items-end">
+              <div>
+                <p class="text-xs text-on-surface-variant font-label">Current Bid</p>
+                <p class="text-2xl font-headline font-bold text-primary">12.45 ETH</p>
+              </div>
+              <button class="bg-primary/20 hover:bg-primary/30 p-2 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- SEARCH & FILTER -->
+  <section class="max-w-7xl mx-auto px-8 -mt-16 relative z-20">
+    <div
+      class="glass-card p-6 rounded-2xl border border-outline-variant/15 shadow-2xl flex flex-col md:flex-row gap-4 items-center">
+      <div class="relative flex-1 w-full">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline"
+          data-icon="search">search</span>
+        <input
+          class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/50 transition-all"
+          placeholder="Search auctions…" type="text" />
+      </div>
+      <div class="flex flex-wrap md:flex-nowrap gap-4 w-full md:w-auto">
+        <select
+          class="bg-surface-container-high border-none rounded-xl py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer min-w-[140px]">
+          <option>Category</option>
+          <option>Digital Art</option>
+          <option>Real Estate</option>
+          <option>Luxury</option>
+        </select>
+        <select
+          class="bg-surface-container-high border-none rounded-xl py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer min-w-[140px]">
+          <option>Status</option>
+          <option>Live Now</option>
+          <option>Upcoming</option>
+        </select>
+        <button
+          class="bg-surface-container-high p-4 rounded-xl text-on-surface hover:bg-surface-container-highest transition-colors">
+          <span class="material-symbols-outlined" data-icon="tune">tune</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <!-- TRENDING SECTION -->
+  <section class="py-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-8 mb-12 flex justify-between items-end">
+      <div>
+        <h2 class="font-headline text-4xl font-bold mb-2">Featured Auctions</h2>
+        <p class="text-on-surface-variant">The most anticipated events this week</p>
+      </div>
+      <div class="flex gap-4">
+        <button
+          class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary/10 transition-colors">
+          <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+        </button>
+        <button
+          class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary/10 transition-colors">
+          <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+    <div id="featured-scroll" class="flex gap-8 overflow-x-auto pb-8 px-8 no-scrollbar scroll-smooth">
+      <!-- Dynamic featured cards rendered by script.js -->
+      <div class="flex-shrink-0 w-full flex items-center justify-center h-[200px]">
+        <p class="text-outline/50 text-xl font-headline uppercase tracking-widest">No Events Scheduled</p>
+      </div>
+    </div>
+  </section>
+  <!-- MAIN AUCTIONS GRID -->
+  <section class="py-24 bg-surface-container-low/30">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex justify-between items-center mb-16">
+        <h2 class="font-headline text-4xl font-bold">Live &amp; Upcoming Auctions</h2>
+        <div class="flex items-center gap-2 text-primary font-bold cursor-pointer hover:underline">
+          View all events <span class="material-symbols-outlined" data-icon="trending_flat">trending_flat</span>
+        </div>
+      </div>
+      <div id="auction-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamic auction cards rendered by script.js -->
+        <div class="col-span-full flex items-center justify-center py-24">
+          <p class="text-outline/50 text-xl font-headline uppercase tracking-widest">No Events Scheduled</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CTA SECTION (AI Pattern) -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-primary/5"></div>
+    <div class="max-w-4xl mx-auto px-8 relative z-10 text-center">
+      <h2 class="font-headline text-5xl md:text-6xl font-bold mb-8">Ready to join the <span
+          class="text-gradient">Pulse?</span></h2>
+      <p class="text-xl text-on-surface-variant mb-12">Experience the thrill of high-stakes live auctions with zero
+        latency and absolute security.</p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center">
+        <button class="btn-pulse px-12 py-5 rounded-full text-on-primary font-extrabold text-xl shadow-lg" onclick="handleProtectedAction(() => document.getElementById('auction-grid').scrollIntoView({behavior:'smooth'}))">Start Bidding
+          Now</button>
+        <button
+          class="px-12 py-5 rounded-full border border-outline-variant/40 bg-white/5 backdrop-blur-md text-on-surface font-bold text-xl hover:bg-white/10 transition-all" onclick="handleProtectedAction(openCreateModal)">Join
+          as Host</button>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer class="bg-[#070d1f] w-full py-12 border-t border-[#3b476b]/15">
+    <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex flex-col gap-4">
+        <div class="text-lg font-bold text-[#8ff5ff] font-headline tracking-tighter">ARCANE AUCTION</div>
+        <p class="text-[#dbb8ff]/50 text-sm uppercase tracking-widest font-body">© 2026 ARCANE AUCTION. THE DIGITAL
+          PULSE.</p>
+      </div>
+      <div class="flex flex-wrap gap-8 font-body text-sm uppercase tracking-widest">
+        <a class="text-[#dbb8ff]/50 hover:text-[#e0b6ff] transition-colors duration-300" href="#">About</a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#e0b6ff] transition-colors duration-300" href="#">Terms of Service</a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#e0b6ff] transition-colors duration-300" href="#">Privacy Policy</a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#e0b6ff] transition-colors duration-300" href="#">Auction Rules</a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#e0b6ff] transition-colors duration-300" href="#">Contact Support</a>
+      </div>
+      <div class="flex gap-6">
+        <a class="text-[#dbb8ff]/50 hover:text-[#8ff5ff] transition-colors" href="#">
+          <span class="material-symbols-outlined" data-icon="public">public</span>
+        </a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#8ff5ff] transition-colors" href="#">
+          <span class="material-symbols-outlined" data-icon="hub">hub</span>
+        </a>
+        <a class="text-[#dbb8ff]/50 hover:text-[#8ff5ff] transition-colors" href="#">
+          <span class="material-symbols-outlined" data-icon="forum">forum</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <!-- ===== BID MODAL ===== -->
+  <div id="bid-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeBidModal()"></div>
+    <div class="relative glass-card rounded-3xl p-8 w-full max-w-md border border-outline-variant/20 shadow-2xl">
+      <button class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors"
+        onclick="closeBidModal()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h3 class="font-headline text-2xl font-bold mb-2">Place Your Bid</h3>
+      <p id="bid-current" class="text-on-surface-variant mb-6">Current bid: 0.00 ETH</p>
+      <input type="hidden" id="bid-auction-id" />
+      <div class="mb-6">
+        <label class="text-sm text-on-surface-variant font-label uppercase tracking-widest mb-2 block">Your Bid
+          (ETH)</label>
+        <input id="bid-amount" type="number" step="0.01" min="0"
+          class="w-full bg-surface-container-high border-none rounded-xl py-4 px-6 text-on-surface text-xl font-headline font-bold focus:ring-2 focus:ring-primary/50 transition-all"
+          placeholder="0.00" />
+      </div>
+      <button class="btn-pulse w-full py-4 rounded-full text-on-primary font-bold text-lg" onclick="submitBid()">Confirm
+        Bid</button>
+    </div>
+  </div>
+
+  <!-- ===== CREATE EVENT MODAL ===== -->
+  <div id="create-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeCreateModal()"></div>
+    <div class="relative glass-card rounded-3xl p-8 w-full max-w-lg border border-outline-variant/20 shadow-2xl">
+      <button class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors"
+        onclick="closeCreateModal()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h3 class="font-headline text-2xl font-bold mb-6">Create New Auction</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm text-on-surface-variant font-label uppercase tracking-widest mb-2 block">Auction
+            Title</label>
+          <input id="create-title" type="text"
+            class="w-full bg-surface-container-high border-none rounded-xl py-3 px-5 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="e.g. Rare Digital Artwork" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-on-surface-variant font-label uppercase tracking-widest mb-2 block">Starting Bid
+              (ETH)</label>
+            <input id="create-bid" type="number" step="0.01" min="0" value="0"
+              class="w-full bg-surface-container-high border-none rounded-xl py-3 px-5 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all" />
+          </div>
+          <div>
+            <label class="text-sm text-on-surface-variant font-label uppercase tracking-widest mb-2 block">Duration
+              (hours)</label>
+            <input id="create-duration" type="number" step="0.5" min="0.5" value="1"
+              class="w-full bg-surface-container-high border-none rounded-xl py-3 px-5 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm text-on-surface-variant font-label uppercase tracking-widest mb-2 block">Image URL
+            (optional)</label>
+          <input id="create-image" type="url"
+            class="w-full bg-surface-container-high border-none rounded-xl py-3 px-5 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="https://..." />
+        </div>
+      </div>
+      <button class="btn-pulse w-full py-4 rounded-full text-on-primary font-bold text-lg mt-6"
+        onclick="submitAuction()">Launch Auction</button>
+    </div>
+  </div>
+
+  <!-- ===== LOGIN MODAL ===== -->
+  <div id="login-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+    <div class="relative glass-card rounded-3xl p-10 w-full max-w-sm border border-outline-variant/20 shadow-2xl text-center modal-enter">
+      <button class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors"
+        onclick="closeLoginModal()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <!-- Logo -->
+      <div class="text-2xl font-bold bg-gradient-to-r from-[#8ff5ff] to-[#e0b6ff] bg-clip-text text-transparent font-headline tracking-tight mb-2">
+        ARCANE AUCTION
+      </div>
+      <h3 class="font-headline text-xl font-bold mb-1">Continue to Arcane Auction</h3>
+      <p class="text-sm text-on-surface-variant mb-8">Sign in to join auctions, create events, and more.</p>
+
+      <!-- Google Sign-In Button -->
+      <button onclick="signInWithGoogle()"
+        class="btn-pulse w-full py-4 rounded-full text-on-primary font-bold text-lg flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#fff"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#fff"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fff"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <p class="text-xs text-on-surface-variant/50 mt-6">Secure login powered by Supabase</p>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

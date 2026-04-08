@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Auction Room - Kinetic Ether</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-dim": "#00deec",
+                "on-tertiary": "#503172",
+                "tertiary-fixed-dim": "#c09ce6",
+                "on-tertiary-fixed": "#2f0d50",
+                "on-primary-container": "#005359",
+                "on-surface-variant": "#9eaad3",
+                "inverse-primary": "#006a71",
+                "error-container": "#8a1a1e",
+                "surface-container-highest": "#182446",
+                "on-error": "#490006",
+                "surface-tint": "#8ff5ff",
+                "surface-container-low": "#0b1228",
+                "on-background": "#dfe4ff",
+                "on-surface": "#dfe4ff",
+                "tertiary-dim": "#c09ce6",
+                "primary": "#8ff5ff",
+                "on-secondary-fixed": "#61009e",
+                "surface-bright": "#1c2a51",
+                "secondary-fixed-dim": "#e9c8ff",
+                "error": "#ff716c",
+                "outline-variant": "#3b476b",
+                "surface-container-high": "#131e3c",
+                "on-primary": "#005d63",
+                "primary-fixed": "#00eefc",
+                "inverse-surface": "#faf8ff",
+                "surface-variant": "#182446",
+                "outline": "#68749b",
+                "secondary-container": "#3c0065",
+                "background": "#070d1f",
+                "secondary": "#e0b6ff",
+                "on-tertiary-container": "#462768",
+                "on-secondary": "#6200a0",
+                "on-primary-fixed-variant": "#005e64",
+                "tertiary": "#dbb8ff",
+                "on-tertiary-fixed-variant": "#503072",
+                "surface": "#070d1f",
+                "surface-container": "#0f1832",
+                "primary-fixed-dim": "#00deec",
+                "error-dim": "#c94947",
+                "inverse-on-surface": "#4f5469",
+                "tertiary-container": "#cea9f5",
+                "primary-container": "#00eefc",
+                "surface-dim": "#070d1f",
+                "on-error-container": "#ff9993",
+                "on-secondary-container": "#c987ff",
+                "on-primary-fixed": "#003f43",
+                "surface-container-lowest": "#000000",
+                "secondary-dim": "#c57eff",
+                "tertiary-fixed": "#cea9f5",
+                "on-secondary-fixed-variant": "#812fc1",
+                "secondary-fixed": "#f2daff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.5rem",
+                "lg": "0.75rem",
+                "xl": "1rem",
+                "2xl": "1.5rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Manrope"],
+                "label": ["Manrope"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        background-color: #070d1f;
+        font-family: 'Manrope', sans-serif;
+      }
+      .glass-card {
+        background: rgba(11, 18, 40, 0.6);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(59, 71, 107, 0.15);
+      }
+      .pulse-glow {
+        box-shadow: 0 0 20px rgba(143, 245, 255, 0.15);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#070d1f]/60 backdrop-blur-xl border-b border-[#3b476b]/15 shadow-[0_4px_30px_rgba(143,245,255,0.05)] flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-slate-400 hover:text-primary transition-all scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-medium">Back</span>
+</button>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 text-xl font-bold bg-gradient-to-r from-[#8ff5ff] to-[#e0b6ff] bg-clip-text text-transparent font-['Space_Grotesk'] tracking-tight">
+            Rare Cybernetic Relic #402
+        </div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-4 mr-6">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">videocam_off</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">mic_off</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">settings</span>
+</div>
+<button class="bg-error/10 text-error border border-error/20 px-4 py-1.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(255,113,108,0.2)] hover:bg-error/20 transition-all">
+                End Auction
+            </button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] w-20 hover:w-64 transition-all duration-300 group overflow-hidden z-40 bg-[#0b1228]/80 backdrop-blur-lg shadow-2xl shadow-cyan-900/20 flex flex-col py-8 justify-between">
+<div class="flex flex-col gap-6">
+<!-- Nav Item: Auction (Active) -->
+<a class="flex items-center gap-6 px-6 py-3 bg-gradient-to-r from-[#8ff5ff]/20 to-transparent text-[#8ff5ff] border-l-4 border-[#8ff5ff] group-hover:translate-x-0 transition-transform" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Auction</span>
+</a>
+<!-- Nav Item: Bids -->
+<a class="flex items-center gap-6 px-6 py-3 text-slate-500 opacity-70 hover:bg-white/5 transition-all group-hover:translate-x-0" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Bids</span>
+</a>
+<!-- Nav Item: History -->
+<a class="flex items-center gap-6 px-6 py-3 text-slate-500 opacity-70 hover:bg-white/5 transition-all group-hover:translate-x-0" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">History</span>
+</a>
+<!-- Nav Item: Stats -->
+<a class="flex items-center gap-6 px-6 py-3 text-slate-500 opacity-70 hover:bg-white/5 transition-all group-hover:translate-x-0" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Stats</span>
+</a>
+</div>
+<div class="flex flex-col gap-4 border-t border-white/5 pt-6">
+<a class="flex items-center gap-6 px-6 py-3 text-slate-500 opacity-70 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Support</span>
+</a>
+<a class="flex items-center gap-6 px-6 py-3 text-slate-500 opacity-70 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-['Manrope'] text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Exit</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-20 mt-16 p-8 grid grid-cols-12 gap-8 flex-1 overflow-y-auto">
+<!-- LEFT PANEL: Details & Bidding -->
+<aside class="col-span-12 lg:col-span-3 flex flex-col gap-6">
+<!-- Auction Details Card -->
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<img alt="Host Avatar" class="w-12 h-12 rounded-full border border-primary/30" data-alt="portrait of a futuristic executive with holographic glasses and clean digital suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwkYmlcFsjkf5s-prx1wBjq65pUXYCIqlilPPlZ49pw4ziTR-f0YOPM6EMpxmvqDLMtbTWwp1RyBEW8dn6Kyvc-19gRyHjcEHbhvGiF4jCniRVdALHCRTqoqAYH_uFLQxo7nmaZo-X61MwTV1e25dO30D70IaRxvEoqhtMVL2kEEctaniQCks5bxJ8xcmwrhqCjEX1vqOrZ1Q7LQaXMAxFkITUfaYAovj5fE0RdV2eHBE7fv6nkvjKvpKP02rBO00hd32UEq7jgys"/>
+<div>
+<h3 class="text-on-surface-variant text-xs uppercase tracking-widest font-bold">Host</h3>
+<p class="font-headline font-bold text-primary">Swiss Digital</p>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/10">
+<h3 class="text-on-surface-variant text-xs mb-1">Time Remaining</h3>
+<p class="text-3xl font-headline font-bold text-secondary tracking-tighter">00:14:55</p>
+</div>
+<div class="space-y-2">
+<h4 class="text-sm font-bold text-on-surface">About the Relic</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed opacity-80">
+                        Salvaged from the wreckage of the Neon-Tokyo sub-layer, the Aetheris Core is the only surviving MK-1 prototype capable of powering zero-gravity hubs.
+                    </p>
+</div>
+</div>
+<!-- BIDDING AREA (Bottom Left/Side) -->
+<div class="glass-card rounded-2xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-primary/20">
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-xs text-on-surface-variant mb-1">Your Last Bid</p>
+<p class="text-lg font-headline font-bold text-slate-400">42.00 ETH</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-primary mb-1">Highest Bid</p>
+<p class="text-lg font-headline font-bold text-primary">45.50 ETH</p>
+</div>
+</div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3">Your Bid</label>
+<div class="relative mb-6">
+<input class="w-full bg-surface-container-high border-b-2 border-outline-variant focus:border-primary transition-all rounded-t-xl p-4 text-2xl font-headline font-bold text-on-surface focus:ring-0" type="number" value="46.00"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-primary-dim font-bold">ETH</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-6">
+<button class="bg-surface-container hover:bg-primary/10 border border-outline-variant/20 rounded-lg py-2 text-sm font-bold transition-all">+1</button>
+<button class="bg-surface-container hover:bg-primary/10 border border-outline-variant/20 rounded-lg py-2 text-sm font-bold transition-all">+5</button>
+<button class="bg-surface-container hover:bg-primary/10 border border-outline-variant/20 rounded-lg py-2 text-sm font-bold transition-all">+10</button>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-dim text-on-primary font-extrabold py-4 rounded-full text-lg shadow-[0_0_25px_rgba(143,245,255,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
+                    Place Bid
+                </button>
+</div>
+</aside>
+<!-- CENTER PANEL: Main Focus -->
+<section class="col-span-12 lg:col-span-6 flex flex-col gap-6">
+<div class="glass-card rounded-3xl overflow-hidden relative group">
+<!-- Main Product Image -->
+<div class="aspect-square relative flex items-center justify-center p-8">
+<div class="absolute inset-0 bg-gradient-to-t from-[#070d1f] to-transparent z-10 opacity-60"></div>
+<img alt="Aetheris Core MK-1" class="w-full h-full object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700" data-alt="glowing futuristic hexagonal artifact made of obsidian and electric blue glass floating in a dark vacuum with light particles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Z7ooNFkgwERRse55QZIhrO4wnntbV-W4oZBLEYsGXNWzP4WFIizugnMKIfB3Xkw2IEADl1UR20vd7_TKWZdc4g3qTt4wWc2JJ55NAPPDt4RQxzUdAuflGfTbpYNCnv1g10ANklHI7arMvqAFGNegRK-DMz1xbs5GNNvkb67IUFkwOc6S10VHu1rIOV0GdWopYvEZKaBXA36qLbXv-jhZzmjcOE80X_Xo3_cW-xOcRvITDxDEaZf8DaaE_WX47rH5821jL10WY30"/>
+<!-- LIVE Badge -->
+<div class="absolute top-6 left-6 z-20 flex items-center gap-2 bg-secondary-container/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-secondary/30">
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse shadow-[0_0_8px_#e0b6ff]"></span>
+<span class="text-xs font-black text-secondary tracking-widest">LIVE</span>
+</div>
+</div>
+<!-- Product Info Overlay -->
+<div class="p-8 relative z-20 -mt-20">
+<h1 class="text-5xl font-headline font-bold bg-gradient-to-r from-primary via-secondary to-primary-dim bg-clip-text text-transparent mb-2">
+                        Aetheris Core MK-1
+                    </h1>
+<div class="flex items-baseline gap-4">
+<span class="text-on-surface-variant text-sm font-medium">Current Bid:</span>
+<span class="text-6xl font-headline font-black text-on-surface drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                            45.50 <span class="text-primary-dim text-3xl">ETH</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity Ticker (Bonus high-end UI) -->
+<div class="flex gap-4 overflow-hidden whitespace-nowrap mask-gradient-x py-2 opacity-60 text-xs font-mono uppercase tracking-widest text-on-surface-variant">
+<span>User_772 placed a bid of 44.00 ETH • </span>
+<span>Relic authenticated by Digital Vault • </span>
+<span>User_090 placed a bid of 45.00 ETH • </span>
+<span>Auction ending in 14 minutes • </span>
+</div>
+</section>
+<!-- RIGHT PANEL: Leaderboard -->
+<aside class="col-span-12 lg:col-span-3">
+<div class="glass-card rounded-2xl h-full flex flex-col p-6">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-xl font-headline font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">emoji_events</span>
+                        Top Bidders
+                    </h2>
+<span class="text-xs text-on-surface-variant font-bold">5 Active</span>
+</div>
+<div class="space-y-3">
+<!-- Rank 1: Winner/High Glow -->
+<div class="bg-primary/10 border border-primary/30 p-4 rounded-xl flex items-center justify-between group shadow-[0_0_20px_rgba(143,245,255,0.1)]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center font-headline font-bold text-primary italic">#1</div>
+<img alt="User Rank 1" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="close-up avatar of a minimalist 3d character with sleek white skin and glowing blue eyes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByhAeLwVPKQZc6oGYlqcIsRSet7HtUD_FSq-WQKYl9y4QMbZ_AZD-mc8XMGVF3qlSd0HReWLa3M_pEZCv1N8T3jgnEk4kzzCxKZwqeqLVXZnniVxETI2sXMRqG9gSwk4LgRn77X9RbesK_L1Aw7KiPKMHgTBa2cZ0rvBrijSym20sb_ty8k5dqlitEV6-751nBCXJs5ljMP3Jp7aizgNBqopDUECpMh458UdS5ztQV2gApOjoF9CP1wm4z1dThW16SKQoUxQRFO58"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Neon_Specter</p>
+<p class="text-[10px] text-primary/70 uppercase">Winning</p>
+</div>
+</div>
+<p class="font-headline font-bold text-primary">45.50</p>
+</div>
+<!-- Rank 2 -->
+<div class="bg-surface-container/50 p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center font-headline font-bold text-slate-500 italic">#2</div>
+<img alt="User Rank 2" class="w-10 h-10 rounded-full border border-outline-variant/30 opacity-80" data-alt="digital avatar of a person with colorful lighting and high-tech glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF6yyjdLNqjRF2Ntk67oh75wV8I6zchl8XIE6Wq0sWItiUr1JJ9KtEe2VEE3ExkbeEnIVqh3CImUHxCMQHhjFBu7ctr7oVtS12JN1Q9_V7QqsDkW4xtsh-enQXT14EpGSdDjsiEbv-kU20zNbkjkYEBYuBqMkMHncd09Gq-I91XSaP-ZUgmm1J6CXivS2dgsH6gcqnaPFgiBCFSAZ32zdpMDwV1wt9rzmzJEVFlEMwpnuJUR7iB5JV42dsiLmxHGhMrF-YvgnM7Ls"/>
+<div>
+<p class="text-sm font-bold text-on-surface opacity-80">Ghost_Runner</p>
+<p class="text-[10px] text-slate-500 uppercase">3m ago</p>
+</div>
+</div>
+<p class="font-headline font-bold text-on-surface-variant">45.00</p>
+</div>
+<!-- Rank 3 -->
+<div class="bg-surface-container/50 p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center font-headline font-bold text-slate-500 italic">#3</div>
+<img alt="User Rank 3" class="w-10 h-10 rounded-full border border-outline-variant/30 opacity-80" data-alt="abstract stylized profile picture of a person with cybernetic details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1r0PIYu6UtL7-Evnc2HJ6NUJ3UIm4AA9_F1gbS862aEpmlxXUnEDLX2ig8zMigjBFhKCuVlW7Vz9A5Kx35vPmzRtmjh2eGSDcd1tSjINf-6F0sHMpvT4HpLlKFK3ukm6aaGZlHtNCFY55ZKaWAMi8Odc9CttWyf9XEtEO9WokDbQQ0ivanLf_vWJppmaJQ78NiVSeSZHDcaoyg7Sb0_Og727U1bZiZFFumd8_BfwZsDf4Ldf0--O0UD9OIgeNXINLFb_KJo5ZJqQ"/>
+<div>
+<p class="text-sm font-bold text-on-surface opacity-80">Bit_Basher</p>
+<p class="text-[10px] text-slate-500 uppercase">8m ago</p>
+</div>
+</div>
+<p class="font-headline font-bold text-on-surface-variant">44.00</p>
+</div>
+<!-- Rank 4 -->
+<div class="bg-surface-container/50 p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center font-headline font-bold text-slate-500 italic">#4</div>
+<img alt="User Rank 4" class="w-10 h-10 rounded-full border border-outline-variant/30 opacity-80" data-alt="headshot of a stylish modern person in a dark futuristic studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqfAeU-CwEoMnQKuCtEFEUz3NiZjjbOzzbm3DTrnHXDrsbwG2UyA0S9m5JME4AwXnAAf1DRoTBN5M9EDMq0mSw1RfQwcqv0vnKBk9lcLulfr4SC8NEDz29ARgd8MNfqI-1Q90vqkQ_JummNcapXLy0yW8Q22GIHclYAC71S4tQzWlP3LPDCaD4JsjCsysxJzuMe3O4AGBMSkT3y2sQH_XzulKc6ZTKKPa7qzdXWXo1KGvQove71Yi_dgvC5GxuDFpd3I5HX1PcIos"/>
+<div>
+<p class="text-sm font-bold text-on-surface opacity-80">Ether_Eye</p>
+<p class="text-[10px] text-slate-500 uppercase">12m ago</p>
+</div>
+</div>
+<p class="font-headline font-bold text-on-surface-variant">42.50</p>
+</div>
+<!-- Rank 5 -->
+<div class="bg-surface-container/50 p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center font-headline font-bold text-slate-500 italic">#5</div>
+<img alt="User Rank 5" class="w-10 h-10 rounded-full border border-outline-variant/30 opacity-80" data-alt="vibrant digital art profile image of a young creative professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8yT8Nf7yw-Z-0z8BY71B4-zMyDxJaFB7gQbyzQW0y7WP9373Y9NyVUgC8Er4jqcmjkDhURSaDS1LXjErbmkSQr2EF47KLHzNdN8IWtXRoKhxE1qUtULcLCWteLrUKbVsQOaYRvEDLqbCnabhbaTxokmriKjjKv7epGjm_VVYT2xY4gc6JEQ65tqfDlw0lYlkaaviiDZBimjxsSvYLDxUeoRAgrJj4TBkTwmJnSzuRsKVzS2_zEbOdSE5fbBHPBrl_iCGQizxCRMY"/>
+<div>
+<p class="text-sm font-bold text-on-surface opacity-80">Void_Walker</p>
+<p class="text-[10px] text-slate-500 uppercase">15m ago</p>
+</div>
+</div>
+<p class="font-headline font-bold text-on-surface-variant">42.00</p>
+</div>
+</div>
+<!-- System Message -->
+<div class="mt-auto p-4 bg-secondary/5 border border-secondary/10 rounded-xl">
+<div class="flex items-center gap-2 text-secondary mb-1">
+<span class="material-symbols-outlined text-sm">info</span>
+<span class="text-[10px] font-black uppercase tracking-widest">Notice</span>
+</div>
+<p class="text-[11px] text-on-surface-variant opacity-70 italic leading-tight">
+                        Bidding increments are locked at 0.50 ETH for this tier. Verified wallets only.
+                    </p>
+</div>
+</div>
+</aside>
+</main>
+<!-- Background Atmospheric Glows -->
+<div class="fixed top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+<div class="fixed bottom-1/4 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+</body></html>
